@@ -10,22 +10,24 @@ public class ScoreBoard {
 	public int score;
 	public BufferedImage[] largeNumbers;
 	public BufferedImage[] smallNumbers;
-	public BufferedImage bronzeMedal, silverMedal, goldMedal, platinumMedal;
+	public BufferedImage bronzeMedal, silverMedal, goldMedal, platinumMedal, board;
 	
 	
 	public ScoreBoard() {
 		this.largeNumbers = new BufferedImage[10];
 		this.smallNumbers = new BufferedImage[10];
 		setDefaultValues();
-		getNumbersAndMedals();
+		getImages();
 		
 	}
-	
+
 	public void setDefaultValues() {this.score = 0;}
 	
-	public void getNumbersAndMedals() {
+	public void getImages() {
 		
 		try {
+
+			board = ImageIO.read(getClass().getResourceAsStream("/Tiles/ScoreBoard.png"));
 			
 			// retrieves all numbers for both the end screen and the running screen
 			for (int i = 0; i < 10; i++) {
@@ -92,6 +94,8 @@ public class ScoreBoard {
 	}
 	
 	public void drawFinalScore(Graphics2D g2) {
+		// draws background of the scoreboard and final score
+		g2.drawImage(board, 47, 311, board.getWidth() * 2, board.getHeight() * 2, null);
 		draw(g2, smallNumbers, 357, 320);
 	}
 }

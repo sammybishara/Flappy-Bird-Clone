@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public ScoreBoard scoreBoard = new ScoreBoard();
 	
 	// Pipe Manager
-	public PipeGenerator pipeGen = new PipeGenerator(this, scoreBoard);
+	public PipeGenerator pipeGen = new PipeGenerator(scoreBoard);
 	
 	// Player 
 	public Bird bird = new Bird(keyH);
@@ -48,10 +48,10 @@ public class GamePanel extends JPanel implements Runnable{
 	// Different Screens
 	HashMap<String, Screen> screens = new HashMap<>();
 	Screen startScreen = new StartScreen(bird, backGround);
-	Screen runningScreen = new RunningScreen(this);
-	Screen pauseScreen = new PauseScreen(this);
-	Screen endScreen = new EndScreen(this);
-	Screen readyScreen = new GetReadyScreen(this);
+	Screen runningScreen = new RunningScreen(bird, backGround, pipeGen, scoreBoard);
+	Screen pauseScreen = new PauseScreen(bird, backGround, pipeGen, scoreBoard);
+	Screen endScreen = new EndScreen(bird, backGround, pipeGen, scoreBoard);
+	Screen readyScreen = new GetReadyScreen(bird, backGround);
 	
 	// Collision detection
 	public CollisionChecker cCheck = new CollisionChecker();

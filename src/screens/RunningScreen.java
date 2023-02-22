@@ -1,30 +1,40 @@
 package screens;
 
 import java.awt.Graphics2D;
-import main.GamePanel;
+import entity.Bird;
+import main.BackGround;
+import pipes.PipeGenerator;
+import score.ScoreBoard;
 
 public class RunningScreen implements Screen {
 	
-	GamePanel gp;
+	BackGround backGround;
+	Bird bird;
+	PipeGenerator pipeGen;
+	ScoreBoard scoreBoard;
+
 	
 	
-	public RunningScreen(GamePanel gp) {
-		this.gp = gp;
+	public RunningScreen(Bird bird, BackGround backGround, PipeGenerator pipeGen, ScoreBoard scoreBoard) {
+		this.bird = bird;
+		this.backGround = backGround;
+		this.pipeGen = pipeGen;
+		this.scoreBoard = scoreBoard;
 	}
 
 	@Override
 	public void update() {
-		gp.backGround.update();	// updates background and moving stripe
-		gp.bird.update();	// Updates pipe and player positions
-		gp.bird.updateRunningScreen();
-		gp.pipeGen.updateRunningScreen();
+		backGround.update();	// updates background and moving stripe
+		bird.update();	// Updates pipe and player positions
+		bird.updateRunningScreen();
+		pipeGen.updateRunningScreen();
 	}
 
 	@Override
 	public void draw(Graphics2D g2) {
-		gp.backGround.draw(g2);	// draws backGround and moving Stripe
-		gp.pipeGen.draw(g2);		// draws Pipes for every screen except the start Screen
-		gp.scoreBoard.drawCurrentScore(g2);	// draws the score
-		gp.bird.drawRunningScreen(g2);	
+		backGround.draw(g2);	// draws backGround and moving Stripe
+		pipeGen.draw(g2);		// draws Pipes for every screen except the start Screen
+		scoreBoard.drawCurrentScore(g2);	// draws the score
+		bird.drawRunningScreen(g2);
 	}
 }

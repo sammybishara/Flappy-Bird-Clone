@@ -4,21 +4,17 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import main.GamePanel;
 
 public class Pipe {
 	
 	BufferedImage bottomRim, topRim, bottomPipe, topPipe;
-	GamePanel gp;
 	public int bottomRimY, topRimY, rimX, pipeX, bottomPipeY;
 	public int rimHeight, rimWidth, pipeWidth, bottomPipeHeight, topPipeHeight;
 	public final int groundY = 626;			// where the ground is located for bottom of pipe	
 	public int distanceInBetween = 130;		// distance in between top rim and bottom rim
 	
 	
-	public Pipe(int x, int y, GamePanel gp) {
-		getPipeImage();
-		
+	public Pipe(int x, int y) {
 		this.rimHeight = topRim.getHeight() * 2;
 		this.rimWidth = topRim.getWidth() * 2;
 		this.pipeWidth = bottomPipe.getWidth() * 2;
@@ -26,10 +22,10 @@ public class Pipe {
 		this.bottomRimY = y;
 		this.topRimY = (bottomRimY - distanceInBetween) - rimHeight;
 		this.pipeX = rimX + 4;
-		this.gp = gp;
 		this.bottomPipeY = bottomRimY + rimHeight;  
 		this.bottomPipeHeight = groundY - bottomPipeY;
 		this.topPipeHeight = topRimY;
+		getPipeImage();
 	}
 	
 	private void getPipeImage() {
@@ -56,10 +52,8 @@ public class Pipe {
 	
 	// continues to move pipe if there is no collision
 	public void updateRunningScreen() {
-		if (!gp.bird.isDead) {
-			rimX--;
-			pipeX--;
-		}
+		rimX--;
+		pipeX--;
 	}
 	
 	// draws top rim, bottomRim, top Pipe, and bottom Pipe
