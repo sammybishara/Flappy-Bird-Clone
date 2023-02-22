@@ -55,7 +55,7 @@ public class Pipe {
 	}
 	
 	// continues to move pipe if there is no collision
-	public void update() {
+	public void updateRunningScreen() {
 		if (!gp.bird.isDead) {
 			rimX--;
 			pipeX--;

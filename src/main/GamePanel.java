@@ -40,32 +40,32 @@ public class GamePanel extends JPanel implements Runnable{
 	public PipeGenerator pipeGen = new PipeGenerator(this, scoreBoard);
 	
 	// Player 
-	public Bird bird = new Bird(keyH, this); 
+	public Bird bird = new Bird(keyH);
 	
 	// Background and counter for Stripe
 	public BackGround backGround = new BackGround(screenWidth, screenHeight);
 	
 	// Different Screens
 	HashMap<String, Screen> screens = new HashMap<>();
-	Screen startScreen = new StartScreen(this);		
+	Screen startScreen = new StartScreen(bird, backGround);
 	Screen runningScreen = new RunningScreen(this);
 	Screen pauseScreen = new PauseScreen(this);
 	Screen endScreen = new EndScreen(this);
 	Screen readyScreen = new GetReadyScreen(this);
 	
 	// Collision detection
-	public CollisionChecker cCheck = new CollisionChecker(bird);
+	public CollisionChecker cCheck = new CollisionChecker();
 	
 	
 	public GamePanel() {
 		
 		this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); // sets the dimensions of the screen 
-		this.setDoubleBuffered(true); // all drawing will be done off screen in a painting buffer
+		this.setDoubleBuffered(true); // all drawing will be done off-screen in a painting buffer
 		this.addKeyListener(keyH); // adds the keyboard input to the game handler
 		this.addMouseListener(mouseH);
 		this.setFocusable(true); // the game panel can be focused to receive key input
 		// adds Screens to HashMap
-		this.screens.put("Running Screen", runningScreen);		
+		this.screens.put("Running Screen", runningScreen);
 		this.screens.put("Start Screen", startScreen);
 		this.screens.put("Pause Screen", pauseScreen);
 		this.screens.put("End Screen", endScreen);
@@ -101,9 +101,13 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 	}
-	
+
+	// checks for collisions and then updates pipe and player animations
 	public void update() {
-		Screen currentScreen = getActiveScreen();// gets the current Screen, updates Pipe and player, and animations
+		if (cCheck.checkForCurrentCollision(bird, pipeGen.pipe1)
+				|| cCheck.checkForCurrentCollision(bird, pipeGen.pipe2)) bird.isDead = true;
+
+		Screen currentScreen = getActiveScreen();
 		currentScreen.update();
 	}
 	
@@ -116,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable{
 		g2.dispose();	
 	}
 	
-	public Screen getActiveScreen() {
+	private Screen getActiveScreen() {
 	
 		if (mouseH.restartClicked) {
 			activeScreen = "Start Screen";

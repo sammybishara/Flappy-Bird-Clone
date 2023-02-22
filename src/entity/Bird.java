@@ -6,24 +6,19 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import controls.KeyHandler;
-import main.GamePanel;
 
 
 public class Bird {
 
-	public int x, y, speed;
-	int imageIndex, jumpCount, fallCount;
-	int spriteCounter = 0;
+	public int x, y, speed, imageIndex, jumpCount, fallCount, spriteCounter;
 	KeyHandler keyH;
-	GamePanel gp;
 	BufferedImage[] sprites;
 	public boolean isDead;
 
 	
 	
-	public Bird(KeyHandler keyH, GamePanel gp) {
+	public Bird(KeyHandler keyH) {
 		this.keyH = keyH;
-		this.gp = gp;
 		sprites = new BufferedImage[3];
 		setDefaultValues();
 		getPlayerImage();	
@@ -38,12 +33,12 @@ public class Bird {
 		speed = 6;
 		imageIndex = 0;
 		isDead = false;
+		spriteCounter = 0;
 	}
 	
 	
 	// adds different sprite images into array
 	void getPlayerImage() {
-		
 		try {
 			
 			sprites[0] = ImageIO.read(getClass().getResourceAsStream("/Bird/forward_1.png"));
@@ -61,40 +56,26 @@ public class Bird {
 		spriteCounter++;
 		
 		if (spriteCounter == 10) {
-			imageIndex += 1;
+			imageIndex++;
 			spriteCounter = 0;
 		}
-		if (imageIndex > 2) {
-			imageIndex = 0;
-		}
+		if (imageIndex > 2) imageIndex = 0;
 	}
 	
 	// moves the player 
 	public void updateRunningScreen() {
-		
-		if (gp.cCheck.checkForCurrentCollision(gp.pipeGen.pipe1) || gp.cCheck.checkForCurrentCollision(gp.pipeGen.pipe2 )) {
-			isDead = true;
-			
-		} else {
 			updateMovements();
-		}
 	}
 	
-	void updateMovements() {
+	private void updateMovements() {
 		if (keyH.upPressed == true) {
 			if (!(y <= 0)) {
 				y -= speed;
 				jumpCount = 0;
 				fallCount = 0;
 			}
-			
-		} else {
-			y += 2;
-		}
 
-		if (gp.cCheck.checkForCurrentCollision(gp.pipeGen.pipe1) || gp.cCheck.checkForCurrentCollision(gp.pipeGen.pipe2 )) {
-			isDead = true;
-		}
+		} else y += 2;
 	}
 
 	// draws the current player sprite onto the screen
@@ -123,13 +104,10 @@ public class Bird {
 	public void drawStartScreen(Graphics2D g2) {
 		BufferedImage image = sprites[imageIndex];
 		g2.drawImage(image, x, y, image.getWidth() * 2 , image.getHeight() * 2 , null);
-
 	}
-	
-	
+
 	public void drawEndScreen(Graphics2D g2) {
 		BufferedImage image = sprites[imageIndex];
 		g2.drawImage(image, x, y, image.getWidth() * 2 , image.getHeight() * 2 , null);
-
 	}
 }

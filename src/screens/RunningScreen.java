@@ -17,7 +17,7 @@ public class RunningScreen implements Screen {
 		gp.backGround.update();	// updates background and moving stripe
 		gp.bird.update();	// Updates pipe and player positions
 		gp.bird.updateRunningScreen();
-		gp.pipeGen.update();
+		gp.pipeGen.updateRunningScreen();
 	}
 
 	@Override

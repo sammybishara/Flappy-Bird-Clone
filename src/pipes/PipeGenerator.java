@@ -28,13 +28,13 @@ public class PipeGenerator {
 	
 	
 	// updates each pipe on the screen
-	public void update() {
+	public void updateRunningScreen() {
 		if (pipe1.rimX >= 200) {
-			pipe1.update();
+			pipe1.updateRunningScreen();
 			
 		} else {
-			pipe1.update();
-			pipe2.update();
+			pipe1.updateRunningScreen();
+			pipe2.updateRunningScreen();
 		}
 		
 		// If the first pipe is offScreen, generate the next pipe 

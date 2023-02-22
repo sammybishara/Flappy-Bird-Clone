@@ -21,7 +21,6 @@ public class EndScreen implements Screen{
 	
 	
 	private void getTileImages() {
-
 		try {
 			gameOverPanel = ImageIO.read(getClass().getResourceAsStream("/Tiles/Game Over.png"));
 			scoreBoard = ImageIO.read(getClass().getResourceAsStream("/Tiles/ScoreBoard.png"));
