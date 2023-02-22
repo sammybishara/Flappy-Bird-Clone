@@ -119,24 +119,19 @@ public class GamePanel extends JPanel implements Runnable{
 	public Screen getActiveScreen() {
 	
 		if (mouseH.restartClicked) {
-				activeScreen = "Start Screen";
-				bird.setDefaultValues();	
-				pipeGen.setDefaultValues();
-				scoreBoard.setDefaultValues();
+			activeScreen = "Start Screen";
+			bird.setDefaultValues();
+			pipeGen.setDefaultValues();
+			scoreBoard.setDefaultValues();
+		}
+		else if (mouseH.startClicked) activeScreen = "Get Ready";
 			
-		} else if (mouseH.startClicked) {
-			activeScreen = "Get Ready";
+		else if (keyH.upPressed && !bird.isDead) activeScreen = "Running Screen";
 			
-		} else if (keyH.upPressed && !bird.isDead) {
-			activeScreen = "Running Screen";
-			
-		} else if (keyH.pausePressed) {
-			activeScreen = "Pause Screen";
+		else if (keyH.pausePressed) activeScreen = "Pause Screen";
 			
 		// Ends the game if there is a collision with either pipe that is generated on Screen
-		} else if (bird.isDead) {
-			activeScreen = "End Screen";
-		}
+		else if (bird.isDead) activeScreen = "End Screen";
 
 		return this.screens.get(activeScreen);
 	}

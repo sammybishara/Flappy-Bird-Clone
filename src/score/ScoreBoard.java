@@ -21,9 +21,7 @@ public class ScoreBoard {
 		
 	}
 	
-	public void setDefaultValues() {
-		this.score = 0;
-	}
+	public void setDefaultValues() {this.score = 0;}
 	
 	public void getNumbersAndMedals() {
 		

@@ -58,7 +58,7 @@ public class PipeGenerator {
 	}
 	
 	public void generatePipes() {
-		pipe1 = pipe2;		// first pipe is off screen, so it now becomes the one on screen, and a new pipe is now generated
+		pipe1 = pipe2;		// first pipe is off-screen, so it now becomes the one on screen, and a new pipe is now generated
 		generateSecondPipe();
 	}
 	
@@ -67,13 +67,10 @@ public class PipeGenerator {
 		int y = pipe1.bottomRimY + direction - 150;
 		pipe2 = new Pipe(450, y, gp);
 		
-		// checks if pipe is too high off screen and reassigns it 
-		if (pipe2.topRimY < 0) {
-			pipe2 = new Pipe(450, 238, gp);
+		// checks if pipe is too high off-screen and reassigns it
+		if (pipe2.topRimY < 0) pipe2 = new Pipe(450, 238, gp);
 		
-		// checks if pipe is too low off screen and reassigns it 
-		} else if ((pipe2.bottomRimY + pipe2.rimHeight) > 626) {
-			pipe2 = new Pipe(450, 588, gp);
-		}
+		// checks if pipe is too low off-screen and reassigns it
+		else if ((pipe2.bottomRimY + pipe2.rimHeight) > 626) pipe2 = new Pipe(450, 588, gp);
 	}
 }
